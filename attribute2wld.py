@@ -2,7 +2,7 @@
 import os
 import ogr
 
-input_file = r"E:\Geoportal\Imagery\GE01_ImageLibraryStrips_2016\GE01_ImageLibraryStrips_2016.shp"
+input_file = r"E:\GitHub\geoportal\quicklookScrape\GE01_ImageLibraryStrips_2016\GE01_ImageLibraryStrips_2016.shp"
 shapefile = ogr.Open(input_file)
 layer = shapefile.GetLayer()
 counter = 0

@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE metadata SYSTEM "http://www.fgdc.gov/metadata/fgdc-std-001-1998.dtd"><metadata>
+<idinfo>
+<citation>
+<citeinfo>
+<origin>DigitalGlobe</origin>
+<pubdate>11/02/2005</pubdate>
+<title>NextView ImageLibrary</title>
+<geoform>vector digital data</geoform>
+<pubinfo>
+<pubplace>Longmont CO</pubplace>
+<publish>DigitalGlobe</publish>
+</pubinfo>
+<onlink></onlink>
+</citeinfo>
+</citation>
+<descript>
+<abstract>This shapefile shows the images available in DigitalGlobe's Image Library (Archive).</abstract>
+<purpose>This shapefile can be used to identify strips available in DigitalGlobe's ImageLibrary for a given area of interest (AOI)</purpose>
+</descript>
+<timeperd>
+<timeinfo>
+<sngdate>
+<caldate>2005</caldate>
+</sngdate>
+</timeinfo>
+<current>2005</current>
+</timeperd>
+<status>
+<progress>Complete</progress>
+<update>Daily</update>
+</status>
+<spdom>
+<bounding>
+<westbc>
+-180.000000</westbc>
+<eastbc>
+180.000000</eastbc>
+<northbc>
+90.000000</northbc>
+<southbc>
+-90.000000</southbc>
+</bounding>
+</spdom>
+<keywords>
+<theme>
+<themekt>shapefile</themekt>
+<themekey>ImageLibrary, shapefile.</themekey>
+</theme>
+<place>
+<placekey>Global Coverage</placekey>
+</place>
+<stratum>
+<stratkey>NAD83</stratkey>
+</stratum>
+</keywords>
+<accconst>This dataset can be used within your organization without any restrictions</accconst>
+<useconst>Please do not modify the file as each shapefile reflects available images in our library</useconst>
+<ptcontac>
+<cntinfo>
+<cntorgp>
+<cntorg>DigitalGlobe</cntorg>
+</cntorgp>
+<cntpos>Product Management</cntpos>
+<cntaddr>
+<addrtype>mailing and physical address</addrtype>
+<address>1601 Dry Creek Dr</address>
+<city>Longmont</city>
+<state>CO</state>
+<postal>80503</postal>
+<country>USA</country>
+</cntaddr>
+<cntvoice>800.496.1225</cntvoice>
+<cntfax>303.684.4562</cntfax>
+<cntemail>productmanagement@digitalglobe.com</cntemail>
+<hours>8-5 MST; Weekdays</hours>
+</cntinfo>
+</ptcontac>
+<datacred>DigitalGlobe</datacred>
+<native>ESRI ArcCatalog 9.0.0.535</native>
+<crossref>
+<citeinfo>
+<origin>DigitalGlobe</origin>
+<title>DigitalGlobe Image Library Shapefile</title>
+</citeinfo>
+</crossref>
+</idinfo>
+<dataqual>
+<posacc>
+<horizpa>
+<horizpar>1:50000 scale by default; Higher accuracy products available based on availability of DEM and GCP's</horizpar>
+</horizpa>
+</posacc>
+</dataqual>
+<spdoinfo>
+<direct>Vector</direct>
+<ptvctinf>
+<sdtsterm>
+<sdtstype>G-polygon</sdtstype>
+<ptvctcnt>520544</ptvctcnt>
+</sdtsterm>
+</ptvctinf>
+</spdoinfo>
+<spref>
+<horizsys>
+<geograph>
+<latres>0.000008</latres>
+<longres>0.000008</longres>
+<geogunit>Decimal degrees</geogunit>
+</geograph>
+<geodetic>
+<horizdn>WGS 84</horizdn>
+<ellips>WGS 84</ellips>
+<semiaxis>6378137</semiaxis>
+<denflat>298.257222</denflat>
+</geodetic>
+</horizsys>
+</spref>
+<eainfo>
+<detailed>
+<enttyp>
+<enttypl>
+ImageLibrary</enttypl>
+</enttyp>
+<attr>
+<attrlabl>FID</attrlabl>
+<attrdef>Internal feature number.</attrdef>
+<attrdefs>ESRI</attrdefs>
+<attrdomv>
+<udom>Sequential unique whole numbers that are automatically generated.</udom>
+</attrdomv>
+</attr>
+<attr>
+<attrlabl>Shape</attrlabl>
+<attrdef>Feature geometry.</attrdef>
+<attrdefs>ESRI</attrdefs>
+<attrdomv>
+<udom>Coordinates defining the features.</udom>
+</attrdomv>
+</attr>
+<attr>
+<attrlabl>CATALOGID</attrlabl>
+<attrdef>Catalog ID in DG ImageLibrary</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>ACQDATE</attrlabl>
+<attrdef>Imagery acquisition date</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MNOFFNADIR</attrlabl>
+<attrdef>Minimum off nadir collection angle across image strip</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MXOFFNADIR</attrlabl>
+<attrdef>Maximum off nadir collection angle across image strip</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>AVOFFNADIR</attrlabl>
+<attrdef>Average off nadir collection angle across image strip</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MNSUNAZIMUTH</attrlabl>
+<attrdef>Minimum solar azimuth across image strip at the time of collection</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MXSUNAZIMUTH</attrlabl>
+<attrdef>Maximum solar azimuth across image strip at the time of collection</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>AVSUNAZIMUTH</attrlabl>
+<attrdef>Average solar azimuth across image strip at the time of collection</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MNSUNELEV</attrlabl>
+<attrdef>Minimum sun elevation angle across image strip at the time of collection</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MXSUNELEV</attrlabl>
+<attrdef>Maximum sun elevation angle across image strip at the time of collection</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>AVSUNELEV</attrlabl>
+<attrdef>Average sun elevation angle across image strip at the time of collection</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MNTARGETAZ</attrlabl>
+<attrdef>Minimum angle across strip from true north that the camera was facing when the image was collected</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MXTARGETAZ</attrlabl>
+<attrdef>Maximum angle across strip from true north that the camera was facing when the image was collected</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>AVTARGETAZ</attrlabl>
+<attrdef>Average angle across strip from true north that the camera was facing when the image was collected</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MNPANRES</attrlabl>
+<attrdef>Mimimum resolution of panchromatic band across strip</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MXPANRES</attrlabl>
+<attrdef>Maximum resolution of panchromatic band across strip</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>AVPANRES</attrlabl>
+<attrdef>Average resolution of panchromatic band across strip</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MNMULTIRES</attrlabl>
+<attrdef>Mimimum resolution of multi-spectral bands across strip</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>MXMULTIRES</attrlabl>
+<attrdef>Maximum resolution of multi-spectral bands across strip</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>AVMULTIRES</attrlabl>
+<attrdef>Average resolution of multi-spectral bands across strip</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>CLOUDCOVER</attrlabl>
+<attrdef>Estimated cloud cover in the image</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>STEREOPAIR</attrlabl>
+<attrdef>Catalog id of matching stereo pair image</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>BROWSEURL</attrlabl>
+<attrdef>URL of browse image of the scenes at 15M resolution</attrdef>
+<attrdefs>DigitalGlobe</attrdefs>
+</attr>
+<attr>
+<attrlabl>x1</attrlabl>
+<attrdef>Minimum bounding rectangle top left corner X</attrdef>
+</attr>
+<attr>
+<attrlabl>y1</attrlabl>
+<attrdef>Minimum bounding rectangle top left corner Y</attrdef>
+</attr>
+<attr>
+<attrlabl>x2</attrlabl>
+<attrdef>Minimum bounding rectangle top right corner X</attrdef>
+</attr>
+<attr>
+<attrlabl>y2</attrlabl>
+<attrdef>Minimum bounding rectangle top right corner Y</attrdef>
+</attr>
+<attr>
+<attrlabl>x3</attrlabl>
+<attrdef>Minimum bounding rectangle bottom right corner X</attrdef>
+</attr>
+<attr>
+<attrlabl>y3</attrlabl>
+<attrdef>Minimum bounding rectangle bottom right corner Y</attrdef>
+</attr>
+<attr>
+<attrlabl>x4</attrlabl>
+<attrdef>Minimum bounding rectangle bottom left corner X</attrdef>
+</attr>
+<attr>
+<attrlabl>y4</attrlabl>
+<attrdef>Minimum bounding rectangle bottom left corner Y</attrdef>
+</attr>
+</detailed>
+</eainfo>
+<distinfo>
+<distrib>
+<cntinfo>
+<cntorgp>
+<cntorg>Product Management</cntorg>
+</cntorgp>
+</cntinfo>
+</distrib>
+<resdesc>Image Library Shapefile</resdesc>
+<distliab>None</distliab>
+<stdorder>
+<digform>
+<digtinfo>
+<transize>67.514</transize>
+</digtinfo>
+</digform>
+<fees>Call DigitalGlobe customer service</fees>
+<turnarnd>Variable</turnarnd>
+</stdorder>
+<custom>call DigitalGlobe customer service to visit our website at www.digitalglobe.com</custom>
+<techpreq>Require SW that can display ESRI shapefile</techpreq>
+</distinfo>
+<metainfo>
+<metd>20051108</metd>
+<metc>
+<cntinfo>
+<cntorgp>
+<cntorg>DigitialGlobe</cntorg>
+</cntorgp>
+<cntpos>Product Management</cntpos>
+<cntaddr>
+<addrtype>mailing address</addrtype>
+<address>1601 Dry Creek Drive Suite 260</address>
+<city>Longmont</city>
+<state>CO</state>
+<postal>80503.</postal>
+<country>USA</country>
+</cntaddr>
+<cntvoice>1.800.655.7929</cntvoice>
+<cntfax>303.684.4562</cntfax>
+<cntemail>productmanagement@digitalglobe.com</cntemail>
+<hours>8-5 Weekdays</hours>
+<cntinst>DigitalGlobe
+1601 Dry Creek Dr
+Longmont CO 80503</cntinst>
+</cntinfo>
+</metc>
+<metstdn>FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+<metstdv>FGDC-STD-001-1998</metstdv>
+<mettc>local time</mettc>
+<metac>None</metac>
+<metuc>None</metuc>
+<metextns>
+<onlink>http://www.esri.com/metadata/esriprof80.html</onlink>
+<metprof>ESRI Metadata Profile</metprof>
+</metextns>
+</metainfo>
+</metadata>

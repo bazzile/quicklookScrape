@@ -36,3 +36,4 @@ for i in range(layer.GetFeatureCount()):
         print(CATALOGID, img_url, max(x), max(y))
 end_time = (time.time() - start_time)/60
 print("Готово. %s квиклуков сгенерировано за %s минут" % (counter, end_time))
+

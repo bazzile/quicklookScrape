@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 import os
 import ogr
+from attribute2wld import attr2wld
 
 input_file = r"E:\GitHub\geoportal\quicklookScrape\GE01_ImageLibraryStrips_2016\GE01_ImageLibraryStrips_2016.shp"
+out_dir = r"E:\Geoportal\Imagery\database"
+
 shapefile = ogr.Open(input_file)
 layer = shapefile.GetLayer()
 counter = 0
 for i in range(layer.GetFeatureCount()):
-    if i < 1:
+    if i == 2:
         x = []
         y = []
         feature = layer.GetFeature(i)
@@ -20,8 +23,8 @@ for i in range(layer.GetFeatureCount()):
         for index in ['y1', 'y2', 'y3', 'y4']:
             y.append(feature.GetField(index))
 
-
         counter += 1
         print(CATALOGID, BROWSEURL, max(x), max(y))
 print(counter)
-# TODO рассчитать wld - файл
+
+attr2wld(out_dir, CATALOGID, x, y, 1024)

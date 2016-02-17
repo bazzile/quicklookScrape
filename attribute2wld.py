@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
-import os
-import ogr
 
-input_file = r"E:\GitHub\geoportal\quicklookScrape\GE01_ImageLibraryStrips_2016\GE01_ImageLibraryStrips_2016.shp"
-shapefile = ogr.Open(input_file)
-layer = shapefile.GetLayer()
-counter = 0
-for i in range(layer.GetFeatureCount()):
-    feature = layer.GetFeature(i)
-    CATALOGID = feature.GetField('CATALOGID')
-    counter += 1
-    print(CATALOGID)
-print(counter)
-# TODO извлечь координаты всех углов снимка
-# TODO рассчитать wld - файл
+def attr2wld(x, y, resolution):
+    A = (max(x)-min(x))/resolution)
+    B = 0
+    C = 0
+    D = (max(y)-min(y))/resolution)
+    E = min(x)
+    F = max(y)
+

@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 import os
+import time
 from urllib import urlretrieve
 import ogr
 from attribute2wld import attr2wld
 
-input_file = r"E:\GitHub\geoportal\quicklookScrape\GE01_ImageLibraryStrips_2016\GE01_ImageLibraryStrips_2016.shp"
-out_dir = r"E:\Geoportal\Imagery\database"
+input_file = r"D:\GitHub\quicklookScrape\GE01_ImageLibraryStrips_2016\GE01_ImageLibraryStrips_2016.shp"
+out_dir = r"D:\GitHub\quicklookScrape\database"
 
 shapefile = ogr.Open(input_file)
 layer = shapefile.GetLayer()
 counter = 0
+start_time = time.time()
 for i in range(layer.GetFeatureCount()):
-    if i == 7:
+    if 9 < i < 16:
         x = []
         y = []
         feature = layer.GetFeature(i)
@@ -28,23 +30,9 @@ for i in range(layer.GetFeatureCount()):
         # &imageHeight=1024&imageWidth=1024 - для 1024 * 1024 разрешения (работает только тогда, когда высота < ширины)
         # 512 * 512 работает без пересчёта разрешения?
         counter += 1
+        img_name = CATALOGID + '.png'
+        urlretrieve(img_url, os.path.join(out_dir, img_name))
+        attr2wld(out_dir, CATALOGID, x, y)
         print(CATALOGID, img_url, max(x), max(y))
-
-        # resolution = 1024
-        print((max(x)-min(x))/1280)
-        print('0')
-        print('0')
-        print(-(max(y)-min(y))/7397)
-        print(min(x))
-        print(max(y))
-
-        print(x[0], y[0])
-        print(x[1], y[1])
-        print(x[2], y[2])
-        print(x[3], y[3])
-
-        print(BROWSEURL)
-
-# print(counter)
-urlretrieve(img_url, os.path.join(out_dir, CATALOGID + '.png'))
-attr2wld(out_dir, CATALOGID, x, y, 1024)
+end_time = (time.time() - start_time)/60
+print("Готово. %s квиклуков сгенерировано за %s минут" % (counter, end_time))

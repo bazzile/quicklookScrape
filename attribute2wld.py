@@ -17,4 +17,3 @@ def attr2wld(dirname, CATALOGID, x, y):
     with open(os.path.join(dirname, CATALOGID + '.wld'), 'w') as f_out:
         f_out.write('\n'.join((a, b, c, d, e, f)))
 
-

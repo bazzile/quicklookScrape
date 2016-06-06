@@ -4,7 +4,7 @@ from PIL import Image
 
 
 def attr2wld(dirname, CATALOGID, x, y):
-    im = Image.open(os.path.join(dirname, CATALOGID + '.png'))
+    im = Image.open(os.path.join(dirname, CATALOGID + '.jpg'))
     width = im.size[0]
     height = im.size[1]
     a = str((max(x)-min(x))/width)

@@ -18,6 +18,7 @@ layer = shapefile.GetLayer()
 counter = 0
 bad_ql_list = []
 start_time = time.time()
+files_to_download = layer.GetFeatureCount()
 for i in range(layer.GetFeatureCount()):
     x, y = [], []
     feature = layer.GetFeature(i)
@@ -34,7 +35,8 @@ for i in range(layer.GetFeatureCount()):
     # if not (52 < int(max(y)) < 67):
     #     continue
 
-    img_url = 'https://browse.digitalglobe.com/imagefinder/showBrowseImage?catalogId=' + CATALOGID + '&imageHeight=natres&imageWidth=natres'
+    img_url = 'https://browse.digitalglobe.com/imagefinder/showBrowseImage?catalogId=' + \
+              CATALOGID + '&imageHeight=natres&imageWidth=natres'
     # &imageHeight=1024&imageWidth=1024 - для 1024 * 1024 разрешения (работает только тогда, когда высота < ширины)
     # 512 * 512 работает без пересчёта разрешения?
     counter += 1
@@ -43,13 +45,15 @@ for i in range(layer.GetFeatureCount()):
         print('{} уже скачан, пропускаем'.format(CATALOGID + '.jpg'))
         continue
     img_name = CATALOGID + '.png'
+    print('Скачиваем квиклук {} из {}'.format(counter, files_to_download))
     urlretrieve(img_url, os.path.join(out_dir, img_name))
     png_image = Image.open(os.path.join(out_dir, img_name))
     # конвертируем png в jpeg и удаляем оригинал
     png_image.save(os.path.join(out_dir, img_name).replace('.png', '.jpg'), 'JPEG', quality=85)
     os.remove(os.path.join(out_dir, img_name))
     attr2wld(out_dir, CATALOGID, x, y)
-    print(i + 1, CATALOGID, size(os.path.getsize(os.path.join(out_dir, img_name).replace('.png', '.jpg'))))
+    print('{} готов. Размер = {}'.format(
+        CATALOGID, size(os.path.getsize(os.path.join(out_dir, img_name).replace('.png', '.jpg')))))
 end_time = (time.time() - start_time)/60
 print("Готово. %s квиклуков сгенерировано за %s минут" % (counter, end_time))
 

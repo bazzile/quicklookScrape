@@ -52,28 +52,33 @@ for i in range(layer.GetFeatureCount()):
         continue
     open(downloading_flag_file, 'a').close()
     print('Запрашиваю квиклук {} из {}...'.format(counter, files_to_download))
-    r = requests.get(img_url, stream=True)
-    if r.status_code == 200:
-        file_size = int(r.headers['Content-Length'])
-        widgets = ['Ход загрузки: ', Percentage(), ' ',
-                   Bar(marker='=', left='[', right=']'),
-                   ' ', ETA(), ' ', FileTransferSpeed()]
-        pbar = ProgressBar(widgets=widgets, max_value=file_size)
-        with TemporaryFile() as tempf:
-            pbar.start()
-            downloaded = 0
-            # скачиваем файл по кускам в 1024 байта (chunks)
-            for chunk in r.iter_content(1024):
-                downloaded += len(chunk)
-                pbar.update(downloaded)
-                tempf.write(chunk)
-            pbar.finish()
-            # на лету конвертируем изначально полученный png в jpg
-            i = Image.open(tempf)
-            i.save(os.path.join(out_dir, img_name), quality=85)
-            attr2wld(out_dir, CATALOGID, x, y)
-            os.remove(downloading_flag_file)
-            print('{} готов. Размер = {}'.format(
-                img_name, size(os.path.getsize(os.path.join(out_dir, img_name)))))
+    try:
+        r = requests.get(img_url, stream=True)
+        if r.status_code == 200:
+            file_size = int(r.headers['Content-Length'])
+            widgets = ['Ход загрузки: ', Percentage(), ' ',
+                       Bar(marker='=', left='[', right=']'),
+                       ' ', ETA(), ' ', FileTransferSpeed()]
+            pbar = ProgressBar(widgets=widgets, max_value=file_size)
+            with TemporaryFile() as tempf:
+                pbar.start()
+                downloaded = 0
+                # скачиваем файл по кускам в 1024 байта (chunks)
+                for chunk in r.iter_content(1024):
+                    downloaded += len(chunk)
+                    pbar.update(downloaded)
+                    tempf.write(chunk)
+                pbar.finish()
+                # на лету конвертируем изначально полученный png в jpg
+                i = Image.open(tempf)
+                i.save(os.path.join(out_dir, img_name), quality=85)
+                attr2wld(out_dir, CATALOGID, x, y)
+                os.remove(downloading_flag_file)
+                print('{} готов. Размер = {}'.format(
+                    img_name, size(os.path.getsize(os.path.join(out_dir, img_name)))))
+    except requests.ConnectionError:
+        print('Соединение сброшено, продолжаем со следующего файла' + 80*'=')
+        os.remove(downloading_flag_file)
+        continue
 end_time = (time.time() - start_time)/60
 print("Готово. %s квиклуков сгенерировано за %s минут" % (counter, end_time))

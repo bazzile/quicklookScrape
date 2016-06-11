@@ -28,6 +28,7 @@ for i in range(layer.GetFeatureCount()):
     x, y = [], []
     feature = layer.GetFeature(i)
     CATALOGID = feature.GetField("CATALOGID")
+    img_name = CATALOGID + '.jpg'
 
     for index in ['x1', 'x2', 'x3', 'x4']:
         x.append(feature.GetField(index))
@@ -41,14 +42,14 @@ for i in range(layer.GetFeatureCount()):
     # 512 * 512 работает без пересчёта разрешения?
     counter += 1
     # пропускаем скачанные снимки
-    if os.path.isfile(os.path.join(out_dir, CATALOGID + '.jpg')):
-        print('{} уже скачан, пропускаем'.format(CATALOGID + '.jpg'))
+    if os.path.isfile(os.path.join(out_dir, img_name)):
+        print('{} уже скачан, пропускаем'.format(img_name))
         continue
-    print('Скачиваем квиклук {} из {}'.format(counter, files_to_download))
+    print('Запрашиваю квиклук {} из {}...'.format(counter, files_to_download))
     r = requests.get(img_url, stream=True)
     if r.status_code == 200:
         file_size = int(r.headers['Content-Length'])
-        widgets = ['Загружаем: ', Percentage(), ' ',
+        widgets = ['Ход загрузки: ', Percentage(), ' ',
                    Bar(marker='=', left='[', right=']'),
                    ' ', ETA(), ' ', FileTransferSpeed()]
         pbar = ProgressBar(widgets=widgets, max_value=file_size)
@@ -63,7 +64,6 @@ for i in range(layer.GetFeatureCount()):
             pbar.finish()
             # на лету конвертируем изначально полученный png в jpg
             i = Image.open(tempf)
-            img_name = CATALOGID + '.jpg'
             i.save(os.path.join(out_dir, img_name), quality=85)
             attr2wld(out_dir, CATALOGID, x, y)
             print('{} готов. Размер = {}'.format(

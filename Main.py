@@ -3,20 +3,25 @@ import os
 import time
 from PIL import Image
 from hurry.filesize import size
-from urllib.request import urlretrieve
+import requests
+from tempfile import TemporaryFile
 import ogr
 from attribute2wld import attr2wld
+from progressbar import AnimatedMarker, Bar, BouncingBar, Counter, ETA, \
+    FileTransferSpeed, FormatLabel, Percentage, \
+    ProgressBar, ReverseBar, RotatingMarker, \
+    SimpleProgress, Timer, AdaptiveETA, AbsoluteETA, AdaptiveTransferSpeed
+
 
 input_file = r"E:\Geoportal\ShapesDB\unZipped\WV03_ImageLibraryStrips_2015.shp"
 
-out_dir = os.path.join("E:\Geoportal\ShapesDB\QuickLooks_from_unZipped", os.path.basename(input_file).split('.')[0])
-if not os.path.isdir(out_dir):
+out_dir = os.path.join(r"E:\Geoportal\ShapesDB\QuickLooks_from_unZipped\test", os.path.basename(input_file).split('.')[0])
+if not os.path.exists(out_dir):
     os.mkdir(out_dir)
 
 shapefile = ogr.Open(input_file)
 layer = shapefile.GetLayer()
 counter = 0
-bad_ql_list = []
 start_time = time.time()
 files_to_download = layer.GetFeatureCount()
 for i in range(layer.GetFeatureCount()):
@@ -26,14 +31,9 @@ for i in range(layer.GetFeatureCount()):
 
     for index in ['x1', 'x2', 'x3', 'x4']:
         x.append(feature.GetField(index))
-    # if not (29 < int(min(x)) < 45):
-    #     continue
 
     for index in ['y1', 'y2', 'y3', 'y4']:
         y.append(feature.GetField(index))
-
-    # if not (52 < int(max(y)) < 67):
-    #     continue
 
     img_url = 'https://browse.digitalglobe.com/imagefinder/showBrowseImage?catalogId=' + \
               CATALOGID + '&imageHeight=natres&imageWidth=natres'
@@ -44,16 +44,29 @@ for i in range(layer.GetFeatureCount()):
     if os.path.isfile(os.path.join(out_dir, CATALOGID + '.jpg')):
         print('{} уже скачан, пропускаем'.format(CATALOGID + '.jpg'))
         continue
-    img_name = CATALOGID + '.png'
     print('Скачиваем квиклук {} из {}'.format(counter, files_to_download))
-    urlretrieve(img_url, os.path.join(out_dir, img_name))
-    png_image = Image.open(os.path.join(out_dir, img_name))
-    # конвертируем png в jpeg и удаляем оригинал
-    png_image.save(os.path.join(out_dir, img_name).replace('.png', '.jpg'), 'JPEG', quality=85)
-    os.remove(os.path.join(out_dir, img_name))
-    attr2wld(out_dir, CATALOGID, x, y)
-    print('{} готов. Размер = {}'.format(
-        CATALOGID, size(os.path.getsize(os.path.join(out_dir, img_name).replace('.png', '.jpg')))))
+    r = requests.get(img_url, stream=True)
+    if r.status_code == 200:
+        file_size = int(r.headers['Content-Length'])
+        widgets = ['Загружаем: ', Percentage(), ' ',
+                   Bar(marker='=', left='[', right=']'),
+                   ' ', ETA(), ' ', FileTransferSpeed()]
+        pbar = ProgressBar(widgets=widgets, max_value=file_size)
+        with TemporaryFile() as tempf:
+            pbar.start()
+            downloaded = 0
+            # скачиваем файл по кускам в 1024 байта (chunks)
+            for chunk in r.iter_content(1024):
+                downloaded += len(chunk)
+                pbar.update(downloaded)
+                tempf.write(chunk)
+            pbar.finish()
+            # на лету конвертируем изначально полученный png в jpg
+            i = Image.open(tempf)
+            img_name = CATALOGID + '.jpg'
+            i.save(os.path.join(out_dir, img_name), quality=85)
+            attr2wld(out_dir, CATALOGID, x, y)
+            print('{} готов. Размер = {}'.format(
+                img_name, size(os.path.getsize(os.path.join(out_dir, img_name)))))
 end_time = (time.time() - start_time)/60
 print("Готово. %s квиклуков сгенерировано за %s минут" % (counter, end_time))
-

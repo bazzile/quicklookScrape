@@ -15,7 +15,7 @@ from progressbar import AnimatedMarker, Bar, BouncingBar, Counter, ETA, \
 
 input_file = r"E:\Geoportal\ShapesDB\unZipped\WV03_ImageLibraryStrips_2015.shp"
 
-out_dir = os.path.join(r"E:\Geoportal\ShapesDB\QuickLooks_from_unZipped", os.path.basename(input_file).split('.')[0])
+out_dir = os.path.join(r"E:\Geoportal\ShapesDB\QuickLooks_from_unZipped\test", os.path.basename(input_file).split('.')[0])
 if not os.path.exists(out_dir):
     os.mkdir(out_dir)
 
@@ -41,10 +41,16 @@ for i in range(layer.GetFeatureCount()):
     # &imageHeight=1024&imageWidth=1024 - для 1024 * 1024 разрешения (работает только тогда, когда высота < ширины)
     # 512 * 512 работает без пересчёта разрешения?
     counter += 1
-    # пропускаем скачанные снимки
-    if os.path.isfile(os.path.join(out_dir, img_name)):
+    # пропускаем загружаемые и скачанные снимки
+    if os.path.isfile(os.path.join(out_dir, img_name)):  # проверяем, скачан ли уже снимок
         print('{} уже скачан, пропускаем'.format(img_name))
         continue
+    # проверяем наличие / создаём временный файл-флаг на время загрузки
+    downloading_flag_file = os.path.join(out_dir, img_name + '.TEMP')
+    if os.path.exists(downloading_flag_file):
+        print('{} скачивается другим процессом, пропускаем'.format(img_name))
+        continue
+    open(downloading_flag_file, 'a').close()
     print('Запрашиваю квиклук {} из {}...'.format(counter, files_to_download))
     r = requests.get(img_url, stream=True)
     if r.status_code == 200:
@@ -66,6 +72,7 @@ for i in range(layer.GetFeatureCount()):
             i = Image.open(tempf)
             i.save(os.path.join(out_dir, img_name), quality=85)
             attr2wld(out_dir, CATALOGID, x, y)
+            os.remove(downloading_flag_file)
             print('{} готов. Размер = {}'.format(
                 img_name, size(os.path.getsize(os.path.join(out_dir, img_name)))))
 end_time = (time.time() - start_time)/60

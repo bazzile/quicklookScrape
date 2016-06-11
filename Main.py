@@ -15,7 +15,7 @@ from progressbar import AnimatedMarker, Bar, BouncingBar, Counter, ETA, \
 
 input_file = r"E:\Geoportal\ShapesDB\unZipped\WV03_ImageLibraryStrips_2015.shp"
 
-out_dir = os.path.join(r"E:\Geoportal\ShapesDB\QuickLooks_from_unZipped\test", os.path.basename(input_file).split('.')[0])
+out_dir = os.path.join(r"E:\Geoportal\ShapesDB\QuickLooks_from_unZipped", os.path.basename(input_file).split('.')[0])
 if not os.path.exists(out_dir):
     os.mkdir(out_dir)
 

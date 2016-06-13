@@ -69,13 +69,16 @@ for i in range(layer.GetFeatureCount()):
                     pbar.update(downloaded)
                     tempf.write(chunk)
                 pbar.finish()
-                # на лету конвертируем изначально полученный png в jpg
-                i = Image.open(tempf)
-                i.save(os.path.join(out_dir, img_name), quality=85)
-                attr2wld(out_dir, CATALOGID, x, y)
-                os.remove(downloading_flag_file)
-                print('{} готов. Размер = {}'.format(
-                    img_name, size(os.path.getsize(os.path.join(out_dir, img_name)))))
+                if file_size == downloaded:
+                    # на лету конвертируем изначально полученный png в jpg
+                    i = Image.open(tempf)
+                    i.save(os.path.join(out_dir, img_name), quality=85)
+                    attr2wld(out_dir, CATALOGID, x, y)
+                    os.remove(downloading_flag_file)
+                    print('{} готов. Размер = {}'.format(
+                        img_name, size(os.path.getsize(os.path.join(out_dir, img_name)))))
+                else:
+                    os.remove(downloading_flag_file)
     except requests.ConnectionError:
         print('Соединение сброшено, продолжаем со следующего файла' + 80*'=')
         os.remove(downloading_flag_file)
